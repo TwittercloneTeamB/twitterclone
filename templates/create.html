@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="alert alert-primary" role="alert">
+    <h3>投稿作成</h3>
+</div>
+{% endblock header %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<p>
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <p>タイトル:<input type="text" name="title"></p>
+        <p>内容:<input type="text" name="content"></p>
+        <p><input type="file" name="sns_image"></p>
+        <input type="hidden" name="author" value="{{ user.username }}">
+
+        <input type="submit" value="投稿">
+    </form>
+</p>
+<a href="{% url 'list' %}">投稿一覧に戻る</a>
+{% else %}
+ログインしてください
+{% endif %}
+
+{% endblock content %}

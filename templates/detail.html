@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="alert alert-primary" role="alert">
+    <h3>投稿</h3>
+</div>
+{% endblock header %}
+
+
+{% block content %}
+<div class="container">
+    <div class="alert alert-success" role="alert">
+        <p>タイトル:{{object.title}}</p>
+        <p>投稿者:{{object.author}}</p>
+        <p><img src="{{ object.sns_image.url}}" width=300></p>
+        <a href="{% url 'good' object.pk %}" class="btn btn-primary" role="button" aria-disabled="true">いいね</a>
+        <a href="{% url 'read' object.pk %}" class="btn btn-secondary" role="button" aria-disabled="true">既読</a>
+        <!-- もし投稿者ならば削除ボタンを表示する(未実装) -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'delete' object.pk %}" class="btn btn-primary" role="button" aria-disabled="true">削除</a>
+        {% endif %}
+    </div>
+    <a href="{% url 'list' %}">投稿一覧へ戻る</a>
+</div>
+{% endblock content %}
